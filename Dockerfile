@@ -3,14 +3,14 @@
 #
 
 # Pull base image.
-FROM ubuntu:16.04
+FROM ubuntu:14.04
 
 ENV NO_PROXY="localhost,ach-gitlab,ach-nas"
 
 # Create new user newuser
 RUN useradd -ms /bin/bash newuser
 
-# Replace password newuser
+# Replace password newuser by user
 RUN sed -i '/newuser/c\newuser:$6$lmt/sdBm$FMLDsdSPskV0E6u5dQccq1qMXgoHJXwkfQY6IO9Tzc/q0FK/8UspjrjGGTFQ6tnJSy5rkm58jxAtVF3GdH693.:17907:0:99999:7:::' /etc/shadow
 
 # Install.
@@ -22,21 +22,12 @@ RUN \
   apt-get install -y software-properties-common && \
   apt-get install -y byobu curl git htop man unzip vim wget && \
   apt-get install -y autoconf gperf gcc-multilib libtool && \
-  apt-get install -y libexpat1-dev expat gdb guake htop  && \
+  apt-get install -y libexpat1-dev expat gdb guake htop cpio rsync&& \
   apt-get install -y bison flex texinfo  devscripts gawk libncurses5-dev  && \
   apt-get install -y zsh curl help2man bc zlib1g-dev libxml2-dev libnss3-1d libnss3-dev
   #rm -rf /var/lib/apt/lists/*
 
-RUN \
-  apt-get update && \
-  apt-get -y upgrade && \
-  apt-get install -y cpio rsync sudo libglib2.0-dev libharfbuzz-dev
-
-RUN \
-  apt-get update && \
-  apt-get -y upgrade && \
-  apt-get install -y libcairo2-dev libjpeg-dev libgif-dev libpango1.0-dev libdbus-1-dev
-
+# add newuser to group sudo
 RUN adduser newuser sudo
 
 # Add files.
