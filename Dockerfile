@@ -10,7 +10,7 @@ ENV NO_PROXY="localhost,ach-gitlab,ach-nas"
 # Create new user newuser
 RUN useradd -ms /bin/bash newuser
 
-# Replace password newuser
+# Replace password newuser by user
 RUN sed -i '/newuser/c\newuser:$6$lmt/sdBm$FMLDsdSPskV0E6u5dQccq1qMXgoHJXwkfQY6IO9Tzc/q0FK/8UspjrjGGTFQ6tnJSy5rkm58jxAtVF3GdH693.:17907:0:99999:7:::' /etc/shadow
 
 # Install.
@@ -35,7 +35,7 @@ RUN \
 RUN \
   apt-get update && \
   apt-get -y upgrade && \
-  apt-get install -y libcairo2-dev libjpeg-dev libgif-dev libpango1.0-dev libdbus-1-dev
+  apt-get install -y libcairo2-dev libjpeg-dev libgif-dev libpango1.0-dev libdbus-1-dev libwebp-dev libav-tools libavcodec-dev libavformat-dev libxslt1-dev libdrm-dev libopus-dev
 
 RUN adduser newuser sudo
 
