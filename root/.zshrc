@@ -97,3 +97,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+export http_proxy='par2.sme.zscloud.net:80/'
+export https_proxy='par2.sme.zscloud.net:80/'
+export ftp_proxy='par2.sme.zscloud.net:80/'
+export ALL_PROXY='par2.sme.zscloud.net:80/'
+export all_proxy='par2.sme.zscloud.net:80'
+export no_proxy='ach-nas,ach-gitlab'
+
+export GIT_PROXY_COMMAND="oe-git-proxy"
+export NO_PROXY=$no_proxy

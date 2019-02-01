@@ -5,7 +5,7 @@
 # Pull base image.
 FROM ubuntu:14.04
 
-ENV NO_PROXY="localhost,ach-gitlab,ach-nas"
+ENV no_proxy="localhost,ach-gitlab,ach-nas"
 
 # Create new user newuser
 RUN useradd -ms /bin/bash newuser
@@ -24,7 +24,9 @@ RUN \
   apt-get install -y autoconf gperf gcc-multilib libtool && \
   apt-get install -y libexpat1-dev expat gdb guake htop cpio rsync&& \
   apt-get install -y bison flex texinfo  devscripts gawk libncurses5-dev  && \
-  apt-get install -y zsh curl help2man bc zlib1g-dev libxml2-dev libnss3-1d libnss3-dev
+  apt-get install -y zsh curl help2man bc zlib1g-dev libxml2-dev libnss3-1d libnss3-dev && \
+  apt-get install -y qt5-default qttools5-dev-tools gcc-multilib g++-multilib socat && \
+  apt-get install -y gawk git-core diffstat texinfo chrpath libsdl1.2-dev
   #rm -rf /var/lib/apt/lists/*
 
 # add newuser to group sudo
@@ -33,7 +35,7 @@ RUN adduser newuser sudo
 # Add files.
 ADD root/.bashrc /root/.bashrc
 ADD root/.gitconfig /root/.gitconfig
-ADD root/.scripts /root/.scripts
+ADD root/.scripts /usr/local/bin
 ADD root/.zsh_history /home/newuser/.zsh_history
 
 # Set environment variables.
