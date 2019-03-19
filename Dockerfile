@@ -26,7 +26,7 @@ RUN \
   apt-get install -y bison flex texinfo  devscripts gawk libncurses5-dev  && \
   apt-get install -y zsh curl help2man bc zlib1g-dev libxml2-dev libnss3-1d libnss3-dev && \
   apt-get install -y qt5-default qttools5-dev-tools gcc-multilib g++-multilib socat && \
-  apt-get install -y gawk git-core diffstat texinfo chrpath libsdl1.2-dev
+  apt-get install -y gawk git-core diffstat texinfo chrpath libsdl1.2-dev libicu-dev
   #rm -rf /var/lib/apt/lists/*
 
 # add newuser to group sudo
