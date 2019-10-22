@@ -7,14 +7,9 @@ FROM ubuntu:14.04
 
 # Variables
 ARG USER=developer
+ARG PASSWD=dev
 
 ENV no_proxy="localhost,ach-gitlab,ach-nas,ach-nashp"
-
-# Create new user developer
-RUN useradd -ms /bin/bash ${USER}
-
-# Replace password by user
-RUN sed -i '/${USER}/c\${USER}:$6$lmt/sdBm$FMLDsdSPskV0E6u5dQccq1qMXgoHJXwkfQY6IO9Tzc/q0FK/8UspjrjGGTFQ6tnJSy5rkm58jxAtVF3GdH693.:17907:0:99999:7:::' /etc/shadow
 
 # Install.
 RUN \
@@ -32,14 +27,16 @@ RUN \
   apt-get install -y gawk git-core diffstat texinfo chrpath libsdl1.2-dev libicu-dev
   #rm -rf /var/lib/apt/lists/*
 
-# add user to group sudo
-RUN adduser ${USER} sudo
-
 # Add files.
 ADD root/.bashrc /root/.bashrc
 ADD root/.gitconfig /root/.gitconfig
 ADD root/.scripts /usr/local/bin
 ADD root/.zsh_history /home/developer/.zsh_history
+
+# Create new user developer
+RUN useradd -ms /bin/bash ${USER}
+RUN echo ${USER}:${PASSWD} | chpasswd
+RUN adduser ${USER} sudo
 
 # Set environment variables.
 ENV HOME /home/${USER}
