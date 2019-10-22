@@ -5,13 +5,16 @@
 # Pull base image.
 FROM ubuntu:14.04
 
-ENV no_proxy="localhost,ach-gitlab,ach-nas"
+# Variables
+ARG USER=developer
 
-# Create new user newuser
-RUN useradd -ms /bin/bash newuser
+ENV no_proxy="localhost,ach-gitlab,ach-nas,ach-nashp"
 
-# Replace password newuser by user
-RUN sed -i '/newuser/c\newuser:$6$lmt/sdBm$FMLDsdSPskV0E6u5dQccq1qMXgoHJXwkfQY6IO9Tzc/q0FK/8UspjrjGGTFQ6tnJSy5rkm58jxAtVF3GdH693.:17907:0:99999:7:::' /etc/shadow
+# Create new user developer
+RUN useradd -ms /bin/bash ${USER}
+
+# Replace password by user
+RUN sed -i '/${USER}/c\${USER}:$6$lmt/sdBm$FMLDsdSPskV0E6u5dQccq1qMXgoHJXwkfQY6IO9Tzc/q0FK/8UspjrjGGTFQ6tnJSy5rkm58jxAtVF3GdH693.:17907:0:99999:7:::' /etc/shadow
 
 # Install.
 RUN \
@@ -29,19 +32,19 @@ RUN \
   apt-get install -y gawk git-core diffstat texinfo chrpath libsdl1.2-dev libicu-dev
   #rm -rf /var/lib/apt/lists/*
 
-# add newuser to group sudo
-RUN adduser newuser sudo
+# add user to group sudo
+RUN adduser ${USER} sudo
 
 # Add files.
 ADD root/.bashrc /root/.bashrc
 ADD root/.gitconfig /root/.gitconfig
 ADD root/.scripts /usr/local/bin
-ADD root/.zsh_history /home/newuser/.zsh_history
+ADD root/.zsh_history /home/developer/.zsh_history
 
 # Set environment variables.
-ENV HOME /home/newuser
-USER newuser
-WORKDIR /home/newuser
+ENV HOME /home/${USER}
+USER ${USER}
+WORKDIR /home/${USER}
 
 # Install oh-my-zsh
 RUN sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"; exit 0;
