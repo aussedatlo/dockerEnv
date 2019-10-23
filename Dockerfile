@@ -9,8 +9,6 @@ FROM ubuntu:14.04
 ARG USER=developer
 ARG PASSWD=dev
 
-ENV no_proxy="localhost,ach-gitlab,ach-nas,ach-nashp"
-
 # Install.
 RUN \
   apt-get update && \
