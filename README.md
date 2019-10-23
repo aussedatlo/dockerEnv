@@ -1,23 +1,23 @@
-## Ubuntu Dockerfile
-
-
-This repository contains **Dockerfile** of [Ubuntu](http://www.ubuntu.com/) for [Docker](https://www.docker.com/)'s [automated build](https://registry.hub.docker.com/u/dockerfile/ubuntu/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
-
-
-### Base Docker Image
-
-* [ubuntu:14.04](https://registry.hub.docker.com/u/library/ubuntu/)
-
-
 ### Installation
 
-1. Install [Docker](https://www.docker.com/).
-
-2. Download [automated build](https://registry.hub.docker.com/u/dockerfile/ubuntu/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull dockerfile/ubuntu`
-
-   (alternatively, you can build an image from Dockerfile: `docker build -t="dockerfile/ubuntu" github.com/dockerfile/ubuntu`)
-
+```
+docker build . --network host -t dev/env:1.0
+```
 
 ### Usage
 
-    docker run -it --rm dockerfile/ubuntu
+```
+FOLDER=<path_to_folder>
+
+docker run -dti --name dev_env \
+    -v $FOLDER:/home/developer/ \
+    --env no_proxy=$no_proxy\
+    --network host \
+    dev/env:1.0 /bin/bash
+```
+
+now you can use the docker using
+
+```
+docker exec -it dev_env /bin/zsh
+```
