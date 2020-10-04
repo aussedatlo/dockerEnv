@@ -1,27 +1,55 @@
 #
-# Ubuntu Dockerfile
+# Debian Jessie based dockerfile
 #
 
 # Pull base image.
-FROM ubuntu:14.04
+FROM debian:jessie
 
 # Variables
 ARG USER=developer
 ARG PASSWD=dev
 
-# Install.
-RUN \
-  apt-get update && \
-  apt-get -y upgrade && \
-  apt-get install -y build-essential && \
-  apt-get install -y software-properties-common && \
-  apt-get install -y byobu curl git htop man unzip vim wget && \
-  apt-get install -y autoconf gperf gcc-multilib libtool && \
-  apt-get install -y libexpat1-dev expat gdb guake htop cpio rsync&& \
-  apt-get install -y bison flex texinfo  devscripts gawk libncurses5-dev  && \
-  apt-get install -y zsh curl help2man bc zlib1g-dev libxml2-dev libnss3-1d libnss3-dev && \
-  apt-get install -y qt5-default qttools5-dev-tools gcc-multilib g++-multilib socat && \
-  apt-get install -y gawk git-core diffstat texinfo chrpath libsdl1.2-dev libicu-dev
+RUN apt-get update && apt-get -y upgrade \
+  && apt-get install -y \
+  build-essential \
+  curl \
+  git \
+  htop \
+  man \
+  unzip \
+  wget \
+  rsync \
+  zsh \
+  software-properties-common \
+  autoconf \
+  gperf \
+  gcc-multilib \
+  libtool \
+  libexpat1-dev \
+  expat \
+  guake \
+  cpio \
+  bison \
+  flex \
+  texinfo \
+  devscripts \
+  gawk \
+  libncurses5-dev \
+  help2man \
+  bc \
+  zlib1g-dev \
+  libxml2-dev \
+  libnss3-1d \
+  libnss3-dev \
+  gcc-multilib \
+  g++-multilib \
+  socat \
+  zip \
+  git-core \
+  diffstat \
+  texinfo \
+  chrpath \
+  sudo
 
 # Create new user developer
 RUN useradd -ms /bin/bash ${USER}
