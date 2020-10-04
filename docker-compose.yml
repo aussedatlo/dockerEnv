@@ -1,0 +1,15 @@
+version: "3.4"
+
+services:
+  dev_env:
+    tty: true
+    restart: always
+    image: ${NAME}:${TAG}
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      network: host
+    container_name: ${NAME}
+    network_mode: host
+    volumes:
+      - ${DOCKER_VOLUME}:/home/developer/
