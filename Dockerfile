@@ -3,7 +3,7 @@
 #
 
 # Pull base image.
-FROM debian:jessie
+FROM debian:buster
 
 # Variables
 ARG USER=developer
@@ -39,7 +39,7 @@ RUN apt-get update && apt-get -y upgrade \
   bc \
   zlib1g-dev \
   libxml2-dev \
-  libnss3-1d \
+  # libnss3-1d \
   libnss3-dev \
   gcc-multilib \
   g++-multilib \
