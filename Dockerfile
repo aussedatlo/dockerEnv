@@ -49,7 +49,8 @@ RUN apt-get update && apt-get -y upgrade \
   diffstat \
   texinfo \
   chrpath \
-  sudo
+  sudo \
+  python
 
 # Create new user developer
 RUN useradd -ms /bin/bash ${USER}
